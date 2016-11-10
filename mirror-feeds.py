@@ -2,7 +2,7 @@
 
 """
 Thanks to Miroslav Stampar (@stamparm) for the software "maltrail"
-This script has code from stamparm/maltrail's update logic which is used to download the feeds.
+This script has code from stamparm/maltrail's update logic which is used to get the feed list from maltrail's codebase.
 Copyright (c) 2016 Binoj D (@dbinoj)
 See the file 'LICENSE' for copying permission
 """
