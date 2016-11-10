@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 """
+Thanks to Miroslav Stampar (@stamparm) for the software "maltrail"
+This script has code from stamparm/maltrail's update logic which is used to download the feeds.
 Copyright (c) 2016 Binoj D (@dbinoj)
 See the file 'LICENSE' for copying permission
 """
