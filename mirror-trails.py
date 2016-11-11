@@ -14,7 +14,6 @@ import time
 
 MALTRAIL_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "maltrail"))
 MALTRAIL_MIRROR_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "maltrail-update-mirror"))
-LFS_SIZE_MB = 99
 TRAILS_FILE_NAME = "trails.csv"
 
 sys.path.append(MALTRAIL_DIR)
