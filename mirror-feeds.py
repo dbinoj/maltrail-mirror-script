@@ -72,7 +72,7 @@ for i in xrange(len(filenames)):
 				urllib.urlretrieve(module.__url__, os.path.join(MALTRAIL_MIRROR_DIR, module.__name__))
 			except:
 				msg = "[x] something went wrong during remote data retrieval ('%s')" % module.__url__
-				log.wrtie("%s\n" % msg)
+				log.write("%s\n" % msg)
 				print msg
 
 			if not trail_size:
