@@ -21,15 +21,33 @@ sys.path.append(MALTRAIL_DIR)
 from core import update
 from core.settings import TRAILS_FILE
 
+subprocess.call(["cp", "maltrail.conf", ".."], cwd=MALTRAIL_DIR)
+subprocess.call(["git", "checkout", "maltrail.conf"], cwd=MALTRAIL_DIR)
 subprocess.call(["git", "pull", "origin", "master"], cwd=MALTRAIL_DIR)
+subprocess.call(["mv", "../maltrail.conf", "."], cwd=MALTRAIL_DIR)
 
 update.main()
 
-subprocess.check_call(["rm", "-f", ".gitattributes", TRAILS_FILE_NAME], cwd=MALTRAIL_MIRROR_DIR)
+filesize = os.path.getsize(TRAILS_FILE) >> 20
+
+if filesize > 90:
+    print " [x] Trails file size is greater than 90mb. Aborting."
+    exit()
+
+subprocess.call(["cp", ".git/config", "../gitconfig"], cwd=MALTRAIL_MIRROR_DIR)
+
+subprocess.check_call(["rm", "-rf", ".git"], cwd=MALTRAIL_MIRROR_DIR)
+
+subprocess.check_call(["rm", "-f", TRAILS_FILE_NAME], cwd=MALTRAIL_MIRROR_DIR)
 subprocess.check_call(["cp", TRAILS_FILE, os.path.join(MALTRAIL_MIRROR_DIR, TRAILS_FILE_NAME)])
 
-subprocess.check_call(["git", "lfs", "track", TRAILS_FILE_NAME], cwd=MALTRAIL_MIRROR_DIR)
-subprocess.check_call(["git", "add", ".gitattributes", TRAILS_FILE_NAME], cwd=MALTRAIL_MIRROR_DIR)
+subprocess.check_call(["git", "init"], cwd=MALTRAIL_MIRROR_DIR)
+
+subprocess.call(["mv", "../gitconfig", ".git/config"], cwd=MALTRAIL_MIRROR_DIR)
+
+subprocess.check_call(["git", "add", "."], cwd=MALTRAIL_MIRROR_DIR)
 subprocess.call(["git", "commit", "-m", "%s update" % time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())], cwd=MALTRAIL_MIRROR_DIR)
-subprocess.check_call(["git", "push", "origin", "master"], cwd=MALTRAIL_MIRROR_DIR)
+
+subprocess.check_call(["git", "push", "-u", "--force", "origin", "master"], cwd=MALTRAIL_MIRROR_DIR)
+
 print " [c] %s Mirror Update script exit." % time.strftime("%a, %d %b %Y %H:%M:%S GMT", time.gmtime())
